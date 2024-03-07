@@ -58,7 +58,43 @@ const errorHandler = (err, req, res, next) => { //ozel amaca sahip bir middlewar
 
 
 app.use(errorHandler)//fonksiyonu app a bildirmem lazim
+
+
+require('express-async-errors')
+
+app.get('/async', async (req, res, next) => {
+    throw new Error('Error in async-function')
+})
+
+/* ------------------------------------------------------- *
+//* ERROR HANDLER
+
+//? errorHandler is middleware and has must be four parameters. (error, request, response, next)
+const errorHandler = (err, req, res, next) => {
+
+    // console.log(err)
+    console.log('errorHandler started.')
+
+    const errorStatusCode = res?.errorStatusCode || 500
+
+    res.status(errorStatusCode).send({
+        error: true,
+        message: err.message,
+        cause: err.cause,
+        stack: err.stack,
+    })
+}
+//? for run errorHandler call in use.
+//? It must be at last middleware.
+app.use(errorHandler)
+
+/* ------------------------------------------------------- */
+
+//? errorHandler:
+//? It must be at last middleware.
+app.use(require('./errorHandler'))
 /* ------------------------------------------------------- */
 app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
 
 //npm i-express-async-errors
+
