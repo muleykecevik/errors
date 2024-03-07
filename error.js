@@ -53,8 +53,12 @@ const errorHandler = (err, req, res, next) => { //ozel amaca sahip bir middlewar
         })
 
 } //error handler da bir middleware dur. onu ayiran sey 4.parametre olarak error vardir
+// erorr heandler her zaman en sonda olur.
+
 
 
 app.use(errorHandler)//fonksiyonu app a bildirmem lazim
 /* ------------------------------------------------------- */
 app.listen(PORT, () => console.log("Running: http://127.0.0.1:" + PORT));
+
+//npm i-express-async-errors
